@@ -1,16 +1,22 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Pokemon App
+      Lista de Pokemons
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="pokemon">
-  <ion-card>
-    <img [src]="pokemon.sprites.front_default" />
-    <ion-card-header>
-      <ion-card-title>{{ pokemon.name }}</ion-card-title>
-    </ion-card-header>
-  </ion-card>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let pokemon of pokemonList" [routerLink]="['/details', pokemon.name]">
+      <ion-thumbnail slot="start">
+        <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+      </ion-thumbnail>
+      <ion-label>{{ pokemon.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

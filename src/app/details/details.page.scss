@@ -1,0 +1,11 @@
+@media (orientation: landscape) {
+    ion-card {
+      flex-direction: row;
+    }
+  }
+  
+  @media (orientation: portrait) {
+    ion-card {
+      flex-direction: column;
+    }
+  }
