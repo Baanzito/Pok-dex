@@ -7,14 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemonList" [routerLink]="['/details', pokemon.name]">
-      <ion-thumbnail slot="start">
-        <img [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
-      </ion-thumbnail>
-      <ion-label>{{ pokemon.name }}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let pokemon of pokemonList">
+        <ion-card [routerLink]="['/details', pokemon.name]">
+          <ion-card-content>
+            <img [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
+            <ion-card-title>{{ pokemon.name }}</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
