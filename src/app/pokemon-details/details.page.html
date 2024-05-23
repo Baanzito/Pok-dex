@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pokédex</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="pokemon">
+    <ion-card>
+      <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+      <ion-card-header>
+        <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Altura: {{ pokemon.height }} metros</p>
+        <p>Peso: {{ pokemon.weight }} kg</p>
+        <p>Experiencia Base: {{ pokemon.base_experience }}</p>
+        <p>Tipo: <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span></p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="!pokemon">
+    <p>Loading...</p>
+  </div>
+
+</ion-content>

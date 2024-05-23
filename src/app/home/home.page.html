@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Lista de Pokemons
+      Pokédex
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
   <ion-list>
     <ion-item *ngFor="let pokemon of pokemonList" [routerLink]="['/details', pokemon.name]">
       <ion-thumbnail slot="start">
-        <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+        <img [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
       </ion-thumbnail>
       <ion-label>{{ pokemon.name }}</ion-label>
     </ion-item>
