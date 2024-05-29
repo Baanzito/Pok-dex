@@ -6,10 +6,13 @@ import { PokeapiService } from '../services/pokeapi.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
+
 export class HomePage implements OnInit {
   pokemonList: any[] = [];
+  allPokemonList: any[] = [];
+  searchTerm: string = '';
   offset: number = 0;
-  limit: number = 20;
+  limit: number = 24;
 
   constructor(private pokeapiService: PokeapiService) { }
 
@@ -22,9 +25,27 @@ export class HomePage implements OnInit {
     this.loadPokemon();
   }
 
+  filterPokemon() {
+    console.log('Filter term:', this.searchTerm);
+    console.log('All Pokemon List:', this.allPokemonList);
+
+    if (!this.searchTerm || this.searchTerm.trim() === '') {
+      this.pokemonList = this.allPokemonList;
+    } else {
+      const searchTermLowerCase = this.searchTerm.toLowerCase();
+      this.pokemonList = this.allPokemonList.filter(pokemon => 
+        pokemon.name.toLowerCase().includes(searchTermLowerCase)
+      );
+    }
+
+    console.log('Filtered Pokemon List:', this.pokemonList);
+  }
+
   loadPokemon(event?: any) {
     this.pokeapiService.getPokemonList(this.offset, this.limit).subscribe(response => {
-      this.pokemonList = [...this.pokemonList, ...response.results];
+      console.log('Loaded Pokemon:', response.results);
+      this.allPokemonList = [...this.allPokemonList, ...response.results];
+      this.filterPokemon();
       this.offset += this.limit;
       if (event) {
         event.target.complete();
@@ -34,5 +55,14 @@ export class HomePage implements OnInit {
 
   loadMore(event: any) {
     this.loadPokemon(event);
+  }
+
+  toggleFavorite(pokemon: any) {
+    pokemon.isFavorite = !pokemon.isFavorite;
+    if (pokemon.isFavorite) {
+      this.pokeapiService.addFavorite(pokemon);
+    } else {
+      this.pokeapiService.removeFavorite(pokemon);
+    }
   }
 }

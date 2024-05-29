@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header
+>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" *ngFor="let pokemon of favoritePokemons">
+        <ion-card class="pokemon-card" [routerLink]="['/details', pokemon.name]">
+          <ion-card-content class="pokemon-details">
+            <img class="pokemon-image" [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
+            <ion-card-title>{{ pokemon.name }}</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

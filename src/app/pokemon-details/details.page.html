@@ -1,46 +1,52 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Pokédex</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title>
+    Detalhes do Pokemon
+  </ion-title>
+</ion-toolbar>
 
 <ion-content>
   <div *ngIf="pokemon">
-    <ion-card>
-      <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+    <ion-card class="pokemon-card">
       <ion-card-header>
+        <img class="pokemon-image" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
         <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        <p>Altura: {{ pokemon.height }} metros</p>
-        <p>Peso: {{ pokemon.weight }} kg</p>
-        <p>Experiencia Base: {{ pokemon.base_experience }}</p>
-        <p>Tipo: <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span></p>
+      <ion-card-content class="pokemon-details">
+        <div class="attribute-div">
+          <p>Altura: {{ pokemon.height }} metros</p>
+          <p>Peso: {{ pokemon.weight }} kg</p>
+        </div>
+        <div class="attribute-div">
+          <p>Experiencia Base: {{ pokemon.base_experience }}</p>
+          <p>Tipo: <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span></p>
+        </div>
 
         <h2>Habilidades</h2>
-        <ul>
+        <ul class="skill-list">
           <li *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }}</li>
         </ul>
-      
-        <h2>Evoluções</h2>
-        <ul>
-          <li *ngFor="let evolution of pokemon.evolutions">{{ evolution.species.name }}</li>
-        </ul>
-      
-        <h2>Formas</h2>
-        <ul>
-          <li *ngFor="let form of pokemon.forms">{{ form.name }}</li>
-        </ul>
-      
+
         <h2>Estatísticas</h2>
-        <ul>
-          <li *ngFor="let stat of pokemon.stats">{{ stat.stat.name }}: {{ stat.base_stat }}</li>
+        <ul class="statistics-list flex column">
+          <li class="flex" *ngFor="let stat of pokemon.stats">
+            <p>{{ stat.stat.name }}</p>
+
+            <div class="flex">
+              <ion-progress-bar
+                color="warning"
+                size="12"
+                value="{{ stat.base_stat / pokemon.maxStatValue }}"
+              ></ion-progress-bar>
+
+              <p>{{ stat.base_stat }}</p>
+            </div>
+          </li>
         </ul>
       </ion-card-content>
     </ion-card>
-  </div>
-  <div *ngIf="!pokemon">
-    <p>Loading...</p>
   </div>
 
 </ion-content>

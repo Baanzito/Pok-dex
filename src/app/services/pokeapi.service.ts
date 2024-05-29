@@ -8,6 +8,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class PokeapiService {
   private baseUrl = 'https://pokeapi.co/api/v2';
+  private favorites: any[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -18,8 +19,12 @@ export class PokeapiService {
   getPokemonDetails(name: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/pokemon/${name}`).pipe(
       map((res: any) => {
-        // Convertendo a altura de decímetros para metros, pois a API retorna a altura em decímetros.
-        res.height = res.height / 10;
+        const baseStatsValues = res.stats.map(function (stat: any) { return stat.base_stat })
+        const maxStatValue = Math.max(...baseStatsValues)
+
+        res.height = res.height / 10; // Convertendo a altura de decímetros para metros, pois a API retorna a altura em decímetros.
+        res.maxStatValue = maxStatValue;
+
         return res;
       }),
       // Tratamento de erros na requisição HTTP
@@ -39,4 +44,17 @@ export class PokeapiService {
     // Retornar um observable com uma mensagem de erro para o usuário.
     return throwError('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
   }
+
+  addFavorite(pokemon: any) {
+    this.favorites.push(pokemon);
+  }
+
+  removeFavorite(pokemon: any) {
+    this.favorites = this.favorites.filter(fav => fav.name !== pokemon.name);
+  }
+
+  getFavorites(): any[] {
+    return this.favorites;
+  }
+
 }

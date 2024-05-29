@@ -18,6 +18,12 @@ const routes: Routes = [
     path: 'details/:name',
     loadChildren: () => import('./pokemon-details/details.module').then( m => m.DetailsPageModule)
   },
+
+  {
+    path: 'favorites', 
+    loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
+  },
+
 ];
 
 @NgModule({

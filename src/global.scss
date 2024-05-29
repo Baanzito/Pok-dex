@@ -27,10 +27,10 @@
     ion-card {
       flex-direction: row;
     }
-  }
+}
   
-  @media (orientation: portrait) {
-    ion-card {
-      flex-direction: column;
+@media (orientation: portrait) {
+  ion-card {
+    flex-direction: column;
     }
-  }
+}
