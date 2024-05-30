@@ -1,3 +1,4 @@
+// Pagina para testes unitários iguais as das outras paginas.
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetailsPage } from './details.page';
 

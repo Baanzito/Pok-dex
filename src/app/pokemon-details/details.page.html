@@ -1,4 +1,5 @@
 <ion-toolbar>
+  <!-- Botão de voltar à página anterior -->
   <ion-buttons slot="start">
     <ion-back-button default-href="#"></ion-back-button>
   </ion-buttons>
@@ -7,33 +8,42 @@
   </ion-title>
 </ion-toolbar>
 
+<!-- Conteúdo principal -->
 <ion-content>
   <div *ngIf="pokemon">
+    <!-- Cartão exibindo detalhes do Pokémon -->
     <ion-card class="pokemon-card">
       <ion-card-header>
+        <!-- Imagem do Pokémon -->
         <img class="pokemon-image" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+        <!-- Nome do Pokémon -->
         <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
       </ion-card-header>
       <ion-card-content class="pokemon-details">
         <div class="attribute-div">
+          <!-- Altura do Pokémon -->
           <p>Altura: {{ pokemon.height }} metros</p>
+          <!-- Peso do Pokémon -->
           <p>Peso: {{ pokemon.weight }} kg</p>
         </div>
         <div class="attribute-div">
+          <!-- Experiência base do Pokémon -->
           <p>Experiencia Base: {{ pokemon.base_experience }}</p>
+          <!-- Tipos do Pokémon -->
           <p>Tipo: <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span></p>
         </div>
-
+        <!-- Lista de habilidades do Pokémon -->
         <h2>Habilidades</h2>
         <ul class="skill-list">
           <li *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }}</li>
         </ul>
-
+        <!-- Lista de estatísticas do Pokémon -->
         <h2>Estatísticas</h2>
         <ul class="statistics-list flex column">
           <li class="flex" *ngFor="let stat of pokemon.stats">
             <p>{{ stat.stat.name }}</p>
 
+            <!-- Barra de progresso representando a estatística -->
             <div class="flex">
               <ion-progress-bar
                 color="warning"
@@ -41,6 +51,7 @@
                 value="{{ stat.base_stat / pokemon.maxStatValue }}"
               ></ion-progress-bar>
 
+              <!-- Valor base da estatística -->
               <p>{{ stat.base_stat }}</p>
             </div>
           </li>
