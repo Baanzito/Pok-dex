@@ -11,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)], // Importa o RouterModule é o configura as rotas.
+  imports: [RouterModule.forChild(routes)], // Importa o RouterModule e configura as rotas.
   exports: [RouterModule] // Exporta o RouterModule para ser usado em todo o módulo.
 })
 export class FavoritesPageRoutingModule { }

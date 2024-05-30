@@ -4,25 +4,37 @@
       Selecione seu Pokemon
     </ion-title>
     <ion-buttons slot="end">
+      <!-- Botão de favoritos -->
       <ion-button [routerLink]="['/favorites']">
+        <!-- Ícone de coração -->
         <ion-icon name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <!-- Barra de pesquisa -->
   <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPokemon()" placeholder="Pesquise o Pokemon Aqui"></ion-searchbar>
 </ion-header>
 
 <ion-content>
+  <!-- Conteúdo principal -->
   <ion-grid>
+    <!-- Grade para exibir os Pokémon -->
     <ion-row>
       <ion-col size="2" *ngFor="let pokemon of pokemonList">
+        <!-- Coluna para cada Pokémon -->
         <ion-card class="pokemon-card">
+          <!-- Card do Pokémon com routerLink para redirecionar para a pagina de detalhes -->
           <ion-card-content class="pokemon-name" [routerLink]="['/details', pokemon.name]">
+            <!-- Conteúdo do card com o nome do Pokémon -->
             <img class="pokemon-image" [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
+            <!-- Imagem do Pokémon que vem da API -->
             <ion-card-title>{{ pokemon.name }}</ion-card-title>
+            <!-- Título do card com nome do Pokémon -->
           </ion-card-content>
           <ion-button fill="clear" class="favorite-button" (click)="toggleFavorite(pokemon)">
+            <!-- Botão de favoritar/desfavoritar -->
             <ion-icon [name]="pokemon.isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
+            <!-- Ícone de coração preenchido se o Pokémon for favorito -->
           </ion-button>
         </ion-card>
       </ion-col>
@@ -30,6 +42,8 @@
   </ion-grid>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <!-- Scroll infinito para carregar mais dados -->
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    <!-- Conteúdo do scroll infinito -->
   </ion-infinite-scroll>
 </ion-content>
