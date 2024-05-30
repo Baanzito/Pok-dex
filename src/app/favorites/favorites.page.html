@@ -1,23 +1,44 @@
 <ion-header>
   <ion-toolbar>
+    <!-- Botão para voltar ao Home -->
     <ion-buttons slot="start">
       <ion-back-button default-href="#"></ion-back-button>
     </ion-buttons>
+    <!-- Título da página -->
     <ion-title>Favoritos</ion-title>
   </ion-toolbar>
-</ion-header
->
+</ion-header>
+
 <ion-content>
+  <!-- Grade para exibir os itens favoritos -->
   <ion-grid>
     <ion-row>
-      <ion-col size="3" *ngFor="let pokemon of favoritePokemons">
-        <ion-card class="pokemon-card" [routerLink]="['/details', pokemon.name]">
-          <ion-card-content class="pokemon-details">
-            <img class="pokemon-image" [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
-            <ion-card-title>{{ pokemon.name }}</ion-card-title>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
+      <!-- Verifica se a lista de favoritos está vazia -->
+      <ng-container *ngIf="favoritePokemons && favoritePokemons.length > 0; else noFavorites">
+        <!-- Ion Col que repete no maximo  -->
+        <ion-col size="3" *ngFor="let pokemon of favoritePokemons">
+          <!-- Card do Pokémon com link para a página de detalhes -->
+          <ion-card class="pokemon-card" [routerLink]="['/details', pokemon.name]">
+            <ion-card-content class="pokemon-details">
+              <!-- Imagem do Pokémon -->
+              <img class="pokemon-image" [src]="getPokemonImage(pokemon.url)" alt="{{ pokemon.name }}">
+              <!-- Título do card com o nome do Pokémon -->
+              <ion-card-title>{{ pokemon.name }}</ion-card-title>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ng-container>
     </ion-row>
   </ion-grid>
+
+  <!-- Template para o caso da lista estar vazia -->
+  <ng-template #noFavorites>
+    <ion-row class="ion-justify-content-center ion-align-items-center no-favorites-container">
+      <ion-col size="auto">
+        <div class="no-favorites-message">
+          Você não tem nenhum Pokémon favorito no momento.
+        </div>
+      </ion-col>
+    </ion-row>
+  </ng-template>
 </ion-content>

@@ -8,11 +8,11 @@ import { FavoritesPage } from './favorites.page';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FavoritesPageRoutingModule
+    CommonModule,  // Importa o CommonModule para fornecer diretivas e pipes para o Angular.
+    FormsModule,  // Importa o FormsModule para usar recursos de formulários do Angular.
+    IonicModule,  // Importa o IonicModule para usar componentes do Ionic.
+    FavoritesPageRoutingModule  // Importa o roteamento para a página de favoritos.
   ],
-  declarations: [FavoritesPage]
+  declarations: [FavoritesPage]  // Declara o componente FavoritesPage.
 })
 export class FavoritesPageModule { }
